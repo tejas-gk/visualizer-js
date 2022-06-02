@@ -1,0 +1,18 @@
+.bar{
+    background-color: #f2f2f2;
+    height:30px;
+    width:10px;
+    display:inline-block;
+    border:2px solid black;
+}
+/* .bar:before{
+    content: '';
+    width:0;
+    height:0;
+    border-style: solid;
+    border-width: 10px 10px 0 10px;
+    border-color: #f2f2f2 transparent transparent transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+} */
