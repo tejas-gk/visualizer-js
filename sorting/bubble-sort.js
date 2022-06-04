@@ -1,38 +1,45 @@
-import {whereMagicHappens} from './sorting.js';
-// function bubbleSort(arr){
-//     for(var i=0;i<arr.length-1;i++){
-//         for(var j=0;j<arr.length-i-1;j++){
-//             console.log(arr[j].style.height);
-//             if(arr[j]>arr[j+1]){
-//                 swap(arr,j,j+1);
-//             }
-//         }
-//     }
-//     return arr;
-// }
-var arr=document.querySelectorAll(".bar").forEach(function(bar){
-    height=bar.style.height;
-    height=parseInt(height);
-    arr.push(height);
-});
+import {whereMagicHappens,swap, deletePreviousBars} from './sorting.js';
+function bubbleSort(arr) {
+    const ele=document.querySelectorAll(".bar");
+    for(let i = 0; i < arr.length; i++) {
+        for(let j = 0; j < arr.length - 1; j++) {
+            ele[j].style.backgroundColor = "red";
+            ele[j+1].style.backgroundColor = "red";
 
-
-console.log(arr)
-function bubbleSort(arr){
-    for(var i=0;i<arr.length-1;i++){
-        for(var j=0;j<arr.length-i-1;j++){
-            if(arr[j].style.height>arr[j+1].style.height){
-                swap(arr,j,j+1);
+            if(arr[j] > arr[j+1]) {
+                // waitforme(speed(speed));
+               swap(arr, j, j+1);
             }
+            ele[j].style.backgroundColor = "green";
+            ele[j+1].style.backgroundColor = "green";
+
         }
+            ele[ele.length-1].style.backgroundColor = "violet";
+            ele[0].style.backgroundColor = "violet";
     }
+
     return arr;
+
 }
+//define arr
+let arr = document.querySelectorAll(".bar").length;
+console.log(arr);
 
 
 const bubble=document.querySelector(".bubbleSort");
-bubble.addEventListener('click', function(){
-    // disableAllBtn();
+bubble.addEventListener("click",function(){
+    whereMagicHappens();
+    deletePreviousBars();
+    bubbleSort(arr);
+    whereMagicHappens();
+
+});
+
+
+
+const newArray=document.querySelector(".newArray");
+newArray.addEventListener('click', function(){
+    deletePreviousBars();
     whereMagicHappens();
     var arr=[];
     var bars=document.querySelectorAll(".bar");
