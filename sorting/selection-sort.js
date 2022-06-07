@@ -1,16 +1,32 @@
-function selection_sort(arr){
-    for(var i=0;i<arr.length;i++){
-        var min=i;
-        for(var j=i+1;j<arr.length;j++){
-            if(arr[j]<arr[min]){
+async function selectionSort(){
+    const ele=document.querySelectorAll(".bar");
+    for(let i = 0; i <ele.length-1 ; i++) {
+        let min=i;
+        await waitforme(delay);
+        for(let j = i+1; j <ele.length; j++) {
+            ele[j].style.backgroundColor = "red";
+            ele[min].style.backgroundColor = "yellow";
+            if(parseInt(ele[j].style.height) < parseInt(ele[min].style.height)) {
                 min=j;
             }
+            ele[j].style.backgroundColor = "green";
+            ele[min].style.backgroundColor = "yellow";
+            if(min!=i){
+                await waitforme(delay);
+                swap(ele[i],ele[min]);
+            }
         }
-        if(min!=i){
-            var temp=arr[i];
-            arr[i]=arr[min];
-            arr[min]=temp;
-        }
+      
+        ele[i].style.backgroundColor = "violet";
+        ele[min].style.backgroundColor = "purple";
     }
-    return arr;
+    ele[ele.length-1].style.backgroundColor = "purple";
+
 }
+
+const selectionSortBtn=document.querySelector(".selectionSort");
+selectionSortBtn.addEventListener("click",()=>{
+    selectionSort();
+    // disableAllBtn();
+}
+)

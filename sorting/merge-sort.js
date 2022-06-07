@@ -1,24 +1,54 @@
-function mergeSort(arr){
-    if(arr.length <= 1) return arr;
-    let mid = Math.floor(arr.length/2);
-    let left = arr.slice(0,mid);
-    let right = arr.slice(mid);
-    return merge(mergeSort(left), mergeSort(right));
+async function mergeSort(){
+    const ele=document.querySelectorAll(".bar");
+    let left = 0;
+    let right = ele.length - 1;
+    await mergeSortHelper(ele, left, right);
+    ele[ele.length-1].style.backgroundColor = "purple";
+
 }
-function merge(left, right){
-    let result = [];
-    while(left.length && right.length){
-        if(left[0] < right[0]){
-            result.push(left.shift());
-        }else{
-            result.push(right.shift());
+async function mergeSortHelper(ele, left, right){
+    if(left < right){
+        let middle = Math.floor((left + right)/2);
+        await mergeSortHelper(ele, left, middle);
+        await mergeSortHelper(ele, middle+1, right);
+        await merge(ele, left, middle, right);
+    }
+}
+async function merge(ele, left, middle, right){
+    let leftArr = [];
+    let rightArr = [];
+    for(let i = left; i <= middle; i++){
+        leftArr.push(ele[i]);
+    }
+    for(let i = middle+1; i <= right; i++){
+        rightArr.push(ele[i]);
+    }
+    leftArr.push(Infinity);
+    rightArr.push(Infinity);
+    let i = 0;
+    let j = 0;
+    for(let k = left; k <= right; k++){
+        if(leftArr[i].offsetHeight < rightArr[j].offsetHeight){
+            ele[k].style.backgroundColor = "red";
+            await waitforme(delay);
+            ele[k].style.backgroundColor = "green";
+            await waitforme(delay);
+            swap(ele[k],leftArr[i]);
+            i++;
+        }
+        else{
+            ele[k].style.backgroundColor = "red";
+            await waitforme(delay);
+            ele[k].style.backgroundColor = "green";
+            await waitforme(delay);
+            swap(ele[k],rightArr[j]);
+            j++;
         }
     }
-    while(left.length){
-        result.push(left.shift());
-    }
-    while(right.length){
-        result.push(right.shift());
-    }
-    return result;
 }
+const mergeSortBtn=document.querySelector(".mergeSort");
+mergeSortBtn.addEventListener("click",()=>{
+    mergeSort();
+    // disableAllBtn();
+}
+)

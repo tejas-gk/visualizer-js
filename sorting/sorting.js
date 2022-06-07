@@ -1,13 +1,19 @@
-export function whereMagicHappens(){
+let delay=250;
+// const ele=document.querySelectorAll(".bar");
+ function whereMagicHappens(){
     console.log('whereMagicHappens');
     createNewArray();
-    disableAllBtn();
-  
+}
+
+ function waitforme(milisec) { 
+    return new Promise(resolve => { 
+        setTimeout(() => { resolve('') }, milisec); 
+    }) 
 }
 //eneable and disable all buttons
-function disableAllBtn(){
+ function disableAllBtn(){
     // document.querySelector(".bubbleSort").disabled = true;
-    document.querySelector(".insertionSort").disabled = true;
+    // document.querySelector(".insertionSort").disabled = true;
     document.querySelector(".mergeSort").disabled = true;
     document.querySelector(".quickSort").disabled = true;
     document.querySelector(".selectionSort").disabled = true;
@@ -41,32 +47,41 @@ arraySize.addEventListener('change', function(){
 function createNewArray(numberOfBars=16){
     for(var i=0;i<numberOfBars;i++){//--------------------------------------------------------------this is what creates those bars randomly
        document.querySelector("#bars").innerHTML += '<div class="bar" style="height:'+Math.floor(Math.random()*100)+'px"></div>';
+   
+    }
+    var arr=[];
+    var bars=document.querySelectorAll(".bar");
+    for(var i=0;i<bars.length;i++){
+        arr.push(bars[i].style.height);
     }
 
 }
 //this will delete the previous bars will use it when sorting
-export function deletePreviousBars(){
+function deletePreviousBars(){
     var bars = document.querySelectorAll(".bar");
     for(var i=0;i<bars.length;i++){
         bars[i].remove();
     }
 }
-
-export  function swap(arr,a,b){
-    var temp=arr[a];
-    arr[a]=arr[b];
-    arr[b]=temp;
-}
-function waitforme(milisec) { 
-    return new Promise(resolve => { 
-        setTimeout(() => { resolve('') }, milisec); 
-    }) 
-}
-
-//delay
-function delay(ms){
-    return new Promise(resolve => setTimeout(resolve, ms));
+ function swap(a,b){
+    var temp=a.style.height;
+    a.style.height=b.style.height;
+    b.style.height=temp;
 }
 
 
+const newArray=document.querySelector(".newArray");
+newArray.addEventListener('click', function(){
+    deletePreviousBars();
+    whereMagicHappens();       
+}
+);
 
+
+let delayElement = document.querySelector('#speed_input');
+
+// Event listener to update delay time 
+delayElement.addEventListener('input', function(){
+    console.log(delayElement.value, typeof(delayElement.value));
+    delay = 320 - parseInt(delayElement.value);
+});
